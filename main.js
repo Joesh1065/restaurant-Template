@@ -37,8 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active')); tab.classList.add('active');
-      panels.forEach(p => p.hidden = p.id !== tab.dataset.target;
-      );
+      panels.forEach(p => p.hidden = p.id !== tab.dataset.target);
       // ARIA
       tabs.forEach(t => t.setAttribute('aria-selected', String(t === tab)));
     });
@@ -105,10 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
       status && (status.textContent = 'Sending enquiry...');
 
       // Simulate network request — replace with real endpoint as needed
+      const submittedData = {name: name.value, email: email.value, phone: phone.value, message: message.value};
       setTimeout(() => {
         btn.disabled = false; btn.textContent = original; form.reset();
         status && (status.textContent = 'Thanks — your enquiry has been received. We will reply shortly.');
-        console.info('Contact form submission simulated:', {name: name.value, email: email.value, phone: phone.value, message: message.value});
+        console.info('Contact form submission simulated:', submittedData);
       }, 1100);
     });
   }
