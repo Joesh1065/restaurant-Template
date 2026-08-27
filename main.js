@@ -152,4 +152,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // small enhancement: reveal fade-in elements on load
   document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+
+  // Image load fallback: replace broken images with a simple SVG placeholder and ensure they are visible
+  const placeholderSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450"><rect width="100%" height="100%" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="20">Image unavailable</text></svg>');
+  document.querySelectorAll('img').forEach(img => {
+    if(!img.complete || img.naturalWidth === 0){ /* don't rely solely on these, still attach handler */ }
+    img.addEventListener('error', (e) => {
+      const target = e.target;
+      if(target && target.tagName === 'IMG'){
+        target.src = placeholderSvg;
+        target.alt = target.alt || 'Image unavailable';
+      }
+    });
+  });
+
+  // Defensive: ensure lightbox starts hidden (in case HTML hidden attribute ignored by CSS)
+  const lightboxEl = document.getElementById('lightbox');
+  if(lightboxEl && !lightboxEl.hasAttribute('hidden')){
+    lightboxEl.setAttribute('hidden','');
+    lightboxEl.setAttribute('aria-hidden','true');
+  }
+
 });

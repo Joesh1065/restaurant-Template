@@ -115,7 +115,9 @@ input:focus,textarea:focus{border-color:var(--accent);outline:none}
 .copyright{font-size:0.85rem;color:var(--muted)}
 
 /* lightbox */
-.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:2rem}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:2rem;z-index:9999}
+/* Ensure hidden attribute actually hides overlay even when author CSS sets display */
+.lightbox[hidden]{display:none !important;visibility:hidden !important;pointer-events:none !important}
 .lightbox img{max-width:90%;max-height:80%;border-radius:10px}
 .lb-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;color:#fff;font-size:1.2rem;cursor:pointer}
 
