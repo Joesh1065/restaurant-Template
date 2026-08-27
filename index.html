@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Luna Bistro — Modern Indian Dining</title>
+  <meta name="description" content="Luna Bistro — premium modern Indian dining. Explore our menu, gallery, opening hours and book a table. Mobile-first responsive template, accessible and SEO-friendly.">
+  <meta name="author" content="Luna Bistro">
+  <link rel="canonical" href="https://example.com/">
+  <meta property="og:title" content="Luna Bistro — Modern Indian Dining">
+  <meta property="og:description" content="Premium modern Indian dining. View menu, gallery, reviews and contact us for reservations.">
+  <meta property="og:type" content="restaurant.restaurant">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1541542684-6e85f0a3c1a1?w=1200&q=80&auto=format&fit=crop">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Luna Bistro",
+    "description": "Premium modern Indian dining.",
+    "url": "https://example.com",
+    "telephone": "+91-98765-43210",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Moon St",
+      "addressLocality": "Bengaluru",
+      "addressRegion": "KA",
+      "postalCode": "560001",
+      "addressCountry": "IN"
+    },
+    "openingHours": ["Mo-Su 11:00-23:00"]
+  }
+  </script>
+</head>
+<body class="theme-light">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#hero" class="brand" aria-label="Luna Bistro - home">
+        <svg class="logo" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0b3d91"/><path d="M12 6a6 6 0 0 0 0 12c3.3 0 6-2.7 6-6 0-3.3-2.7-6-6-6z" fill="#ffe5b4" opacity="0.95"/></svg>
+        <span class="brand-text">Luna Bistro</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Open menu">
+          <span class="hamburger"></span>
+        </button>
+        <ul id="primary-menu" class="menu" hidden>
+          <li><a href="#about">About</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="hero" class="hero" aria-label="Hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h1 class="title">Luna Bistro — Modern Indian Flavors</h1>
+          <p class="lead">A contemporary Indian dining experience blending tradition and innovation. Seasonal ingredients, crafted cocktails and warm hospitality.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#contact">Reserve a Table</a>
+            <a class="btn btn-outline" href="#menu">View Menu</a>
+          </div>
+        </div>
+        <div class="hero-media" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1541544181930-3a6c6a6a9b6f?w=900&q=70&auto=format&fit=crop" alt="Chef plating modern Indian dish">
+        </div>
+      </div>
+    </section>
+
+    <section id="intro" class="container intro">
+      <h2 class="section-title">A Note From Luna</h2>
+      <p>At Luna Bistro, dishes are crafted to share. The menu is inspired by regional Indian flavors with contemporary plating and balanced spice. Perfect for intimate dinners and celebrations.</p>
+    </section>
+
+    <section id="featured" class="featured container">
+      <h2 class="section-title">Featured Dishes</h2>
+      <div class="grid featured-grid">
+        <article class="card">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1604908177522-9a59ef6c2b13?w=600&q=60&auto=format&fit=crop" alt="Tandoori cauliflower"/>
+          <h3 class="card-title">Smoky Tandoori Cauliflower</h3>
+          <p class="muted">Charred, spiced, and finished with citrus and curry leaf oil.</p>
+        </article>
+        <article class="card">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1604908177747-2f5f9d3a4b2a?w=600&q=60&auto=format&fit=crop" alt="Butter chicken modern plating"/>
+          <h3 class="card-title">Heritage Butter Chicken</h3>
+          <p class="muted">Creamy, balanced and aromatic — served with house naan.</p>
+        </article>
+        <article class="card">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=60&auto=format&fit=crop" alt="Dessert"/>
+          <h3 class="card-title">Saffron & Rose Panna Cotta</h3>
+          <p class="muted">Delicate, floral finish with pistachio crumb.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="menu" class="menu container" aria-labelledby="menu-heading">
+      <h2 id="menu-heading" class="section-title">Full Menu</h2>
+      <div class="menu-controls" role="tablist" aria-label="Menu categories">
+        <button class="tab active" data-target="starters" role="tab" aria-selected="true">Starters</button>
+        <button class="tab" data-target="mains" role="tab">Mains</button>
+        <button class="tab" data-target="desserts" role="tab">Desserts</button>
+        <button class="tab" data-target="drinks" role="tab">Drinks</button>
+      </div>
+
+      <div class="menu-panels">
+        <div id="starters" class="menu-panel" role="tabpanel">
+          <ul class="menu-list">
+            <li><span class="dish">Crisp Paneer Chaat</span><span class="price">₹320</span>
+              <p class="desc">Spiced paneer, tamarind, mint chutney.</p>
+            </li>
+            <li><span class="dish">Tandoori Cauliflower</span><span class="price">₹380</span>
+              <p class="desc">Smoky, saffron yogurt, curry leaf oil.</p>
+            </li>
+            <li><span class="dish">Prawn Pepper Fry</span><span class="price">₹420</span>
+              <p class="desc">Black pepper, curry leaf and lemon.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div id="mains" class="menu-panel" role="tabpanel" hidden>
+          <ul class="menu-list">
+            <li><span class="dish">Heritage Butter Chicken</span><span class="price">₹520</span>
+              <p class="desc">Tomato, fenugreek and cream — house naan included.</p>
+            </li>
+            <li><span class="dish">Goan Fish Curry</span><span class="price">₹560</span>
+              <p class="desc">Coconut and kokum — steamed rice.</p>
+            </li>
+            <li><span class="dish">Masala Dosa</span><span class="price">₹280</span>
+              <p class="desc">Crisp crepe with spiced potato — sambar & chutneys.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div id="desserts" class="menu-panel" role="tabpanel" hidden>
+          <ul class="menu-list">
+            <li><span class="dish">Saffron & Rose Panna Cotta</span><span class="price">₹260</span>
+              <p class="desc">Pistachio crumb and citrus gel.</p>
+            </li>
+            <li><span class="dish">Gulab Jamun Cheesecake</span><span class="price">₹290</span>
+              <p class="desc">A playful fusion dessert.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div id="drinks" class="menu-panel" role="tabpanel" hidden>
+          <ul class="menu-list">
+            <li><span class="dish">House Cocktails</span><span class="price">₹380</span>
+              <p class="desc">Seasonal curated cocktails.</p>
+            </li>
+            <li><span class="dish">Masala Chai</span><span class="price">₹120</span>
+              <p class="desc">Traditional Indian spiced tea.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about container">
+      <h2 class="section-title">About Us</h2>
+      <div class="about-grid">
+        <p>Luna Bistro is dedicated to sourcing seasonal produce and celebrating regional Indian techniques. The dining room is designed for intimate conversation, soft lighting and tasteful service.</p>
+        <blockquote class="quote">"An elevated, approachable Indian menu" — Food Journal</blockquote>
+      </div>
+    </section>
+
+    <section id="gallery" class="gallery container">
+      <h2 class="section-title">Image Gallery</h2>
+      <div class="grid gallery-grid">
+        <button class="gallery-item" data-src="https://images.unsplash.com/photo-1541542684-6e85f0a3c1a1?w=1200&q=80&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1541542684-6e85f0a3c1a1?w=600&q=60&auto=format&fit=crop" alt="Dining interior"></button>
+        <button class="gallery-item" data-src="https://images.unsplash.com/photo-1541544181930-3a6c6a6a9b6f?w=1200&q=80&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1541544181930-3a6c6a6a9b6f?w=600&q=60&auto=format&fit=crop" alt="Chef plating"></button>
+        <button class="gallery-item" data-src="https://images.unsplash.com/photo-1525755662778-989d0524087e?w=1200&q=80&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1525755662778-989d0524087e?w=600&q=60&auto=format&fit=crop" alt="Curry closeup"></button>
+        <button class="gallery-item" data-src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=60&auto=format&fit=crop" alt="Dessert plate"></button>
+      </div>
+    </section>
+
+    <section id="reviews" class="reviews container">
+      <h2 class="section-title">Customer Reviews</h2>
+      <div class="reviews-slider" aria-live="polite">
+        <button class="slider-btn prev" aria-label="Previous review">‹</button>
+        <div class="slides">
+          <figure class="slide">
+            <blockquote>"Amazing flavors and thoughtful presentation. The service was wonderful."</blockquote>
+            <figcaption>— Priya R.</figcaption>
+          </figure>
+          <figure class="slide">
+            <blockquote>"Perfect place for date night. Lovely cocktails."</blockquote>
+            <figcaption>— Rahul K.</figcaption>
+          </figure>
+          <figure class="slide">
+            <blockquote>"Creative menu and great vegetarian options."</blockquote>
+            <figcaption>— Anjali S.</figcaption>
+          </figure>
+        </div>
+        <button class="slider-btn next" aria-label="Next review">›</button>
+      </div>
+    </section>
+
+    <section id="hours-contact" class="hours-contact container">
+      <div class="two-col">
+        <div>
+          <h3>Opening Hours</h3>
+          <table class="hours">
+            <tbody>
+              <tr><td>Mon–Thu</td><td>11:00 — 22:30</td></tr>
+              <tr><td>Fri–Sat</td><td>11:00 — 23:30</td></tr>
+              <tr><td>Sun</td><td>10:00 — 21:30</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Location</h3>
+          <address>
+            123 Moon St,<br>
+            Bengaluru, KA 560001<br>
+            <a href="tel:+919876543210">+91 98765 43210</a>
+          </address>
+
+          <div class="map" aria-hidden="true">
+            <iframe title="Luna Bistro location" src="https://www.google.com/maps?q=Bengaluru+India&output=embed" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div id="contact">
+          <h3>Contact & Enquiry</h3>
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" required minlength="2" placeholder="Your name">
+              <span class="error" id="err-name" aria-live="polite"></span>
+            </div>
+
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required placeholder="you@domain.com">
+              <span class="error" id="err-email" aria-live="polite"></span>
+            </div>
+
+            <div class="form-row">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" pattern="[0-9+\-\s]{7,20}" placeholder="+91 98765 43210">
+              <span class="error" id="err-phone" aria-live="polite"></span>
+            </div>
+
+            <div class="form-row">
+              <label for="message">Message / Reservation details</label>
+              <textarea id="message" name="message" rows="4" required minlength="10" placeholder="Preferred date, time, party size..."></textarea>
+              <span class="error" id="err-message" aria-live="polite"></span>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Send Enquiry</button>
+              <div class="form-status" aria-live="polite" role="status"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand-foot">
+        <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0b3d91"/><path d="M12 6a6 6 0 0 0 0 12c3.3 0 6-2.7 6-6 0-3.3-2.7-6-6-6z" fill="#ffe5b4" opacity="0.95"/></svg>
+        <div>Luna Bistro — Modern Indian Dining</div>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="copyright">© <span id="year"></span> Luna Bistro. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lb-close" aria-label="Close">✕</button>
+    <img alt="Expanded gallery image" src="" />
+  </div>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

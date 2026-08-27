@@ -1,0 +1,127 @@
+/* Luna Bistro — responsive, mobile-first styles */
+:root{
+  --bg:#fff;
+  --surface:#fff;
+  --muted:#6b7280;
+  --accent:#0b3d91;
+  --accent-2:#ffb74d;
+  --soft-shadow: 0 6px 20px rgba(11,61,145,0.08);
+  --radius:12px;
+  --max-width:1200px;
+  --container-padding:1rem;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:var(--sans);margin:0;background:var(--bg);color:#111;line-height:1.5;-webkit-font-smoothing:antialiased}
+.container{max-width:var(--max-width);margin:0 auto;padding:1rem}
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{left:1rem;top:1rem;width:auto;height:auto;background:#fff;padding:.5rem;border-radius:6px;z-index:999}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0}
+.brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:inherit}
+.brand .brand-text{font-weight:700}
+.logo{border-radius:6px}
+.main-nav{position:relative}
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;padding:.5rem;border-radius:8px}
+.hamburger{width:22px;height:2px;background:#111;display:block;position:relative}
+.hamburger::before,.hamburger::after{content:"";position:absolute;left:0;width:22px;height:2px;background:#111}
+.hamburger::before{top:-6px}
+.hamburger::after{top:6px}
+.menu{list-style:none;padding:0;margin:0;display:flex;gap:1rem}
+.menu a{text-decoration:none;color:inherit;padding:.4rem .6rem;border-radius:8px}
+.menu a:hover{background:rgba(11,61,145,0.05)}
+
+/* HERO */
+.hero{padding:2rem 0}
+.hero-inner{display:grid;grid-template-columns:1fr;gap:1rem;align-items:center}
+.title{margin:.25rem 0;font-size:1.6rem;line-height:1.05}
+.lead{color:var(--muted);margin:0 0 1rem}
+.btn{display:inline-block;padding:.7rem 1rem;border-radius:10px;text-decoration:none;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-outline{background:transparent;border-color:rgba(11,61,145,0.12);color:var(--accent)}
+.hero-media img{width:100%;height:auto;border-radius:var(--radius);box-shadow:var(--soft-shadow)}
+
+/* cards & grids */
+.grid{display:grid;gap:1rem}
+.featured-grid{grid-template-columns:1fr;}
+.card img{width:100%;height:200px;object-fit:cover;border-radius:10px}
+.card{padding:.6rem}
+.card-title{margin:.5rem 0}
+.muted{color:var(--muted);font-size:.95rem}
+
+/* MENU */
+.menu-controls{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.tab{background:transparent;border:1px solid #eee;padding:.5rem .7rem;border-radius:999px}
+.tab.active{background:var(--accent);color:#fff;border-color:transparent}
+.menu-panel{padding:.5rem 0}
+.menu-list{list-style:none;padding:0;margin:0}
+.menu-list li{display:block;padding:.6rem;border-bottom:1px dashed #eee}
+.menu-list .dish{font-weight:600}
+.menu-list .price{float:right;color:var(--muted)}
+.desc{color:var(--muted);margin:0.25rem 0 0}
+
+/* ABOUT, GALLERY */
+.about-grid{display:grid;gap:1rem}
+.gallery-grid{grid-template-columns:repeat(2,1fr)}
+.gallery-item img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+
+/* reviews slider */
+.reviews-slider{position:relative;padding:1rem 0}
+.slides{display:flex;overflow:hidden}
+.slide{min-width:100%;padding:1rem;background:linear-gradient(180deg,#fff,#fbfbff);border-radius:10px;box-shadow:var(--soft-shadow)}
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.9);border:1px solid #eee;padding:.6rem;border-radius:50%}
+.prev{left:0}
+.next{right:0}
+
+/* hours & contact 2-column layout */
+.two-col{display:block}
+.hours{border-collapse:collapse}
+.hours td{padding:.25rem 0}
+.map iframe{width:100%;height:180px;border:0;border-radius:10px}
+
+/* form */
+.form-row{margin-bottom:.75rem}
+label{display:block;font-size:.95rem;margin-bottom:.25rem}
+input,textarea{width:100%;padding:.6rem;border:1px solid #e6e6e9;border-radius:8px;font:inherit}
+.error{color:#c53030;font-size:.85rem;min-height:1.1em}
+.form-actions{display:flex;gap:.5rem;align-items:center}
+.form-status{color:var(--muted)}
+
+/* footer */
+.site-footer{border-top:1px solid #f0f0f4;padding:1rem 0;margin-top:2rem}
+.footer-inner{display:flex;gap:1rem;align-items:center;justify-content:space-between}
+.footer-links{list-style:none;display:flex;gap:1rem;padding:0;margin:0}
+.footer-links a{text-decoration:none;color:var(--muted)}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:2rem}
+.lightbox img{max-width:90%;max-height:80%;border-radius:10px}
+.lb-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;color:#fff;font-size:1.2rem}
+
+/* small devices base styles */
+@media(min-width:600px){
+  .hero-inner{grid-template-columns:1fr 1fr;gap:2rem}
+  .featured-grid{grid-template-columns:repeat(3,1fr)}
+  .gallery-grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:900px){
+  .container{padding:1.5rem}
+  .title{font-size:2rem}
+  .about-grid{grid-template-columns:1fr 320px}
+  .two-col{display:grid;grid-template-columns:1fr 420px;gap:2rem}
+  .header-inner{padding:1rem 0}
+  .menu{display:flex}
+}
+
+/* desktop nav - show menu inline */
+@media(min-width:900px){
+  .nav-toggle{display:none}
+  #primary-menu[hidden]{display:flex}
+}
+
+/* small accessibility focus states */
+a:focus,input:focus,button:focus{outline:3px solid rgba(11,61,145,0.12);outline-offset:2px}
+
+/* subtle animations */
+.fade-in{animation:fadeIn 700ms ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
