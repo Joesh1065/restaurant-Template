@@ -31,31 +31,66 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Menu tabs
+  // Menu tabs - accessible initialization
   const tabs = Array.from(document.querySelectorAll('.tab'));
   const panels = Array.from(document.querySelectorAll('.menu-panel'));
-  tabs.forEach(tab => {
+  tabs.forEach((tab, i) => {
+    // ensure each tab has an id for aria linking
+    if(!tab.id) tab.id = `tab-${i+1}`;
+    const targetId = tab.dataset.target;
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-controls', targetId);
+    tab.setAttribute('tabindex', tab.classList.contains('active') ? '0' : '-1');
+    tab.setAttribute('aria-selected', tab.classList.contains('active') ? 'true' : 'false');
+
+    const panel = document.getElementById(targetId);
+    if(panel){
+      panel.setAttribute('role','tabpanel');
+      panel.setAttribute('aria-labelledby', tab.id);
+      panel.hidden = !tab.classList.contains('active');
+      panel.setAttribute('aria-hidden', panel.hidden ? 'true' : 'false');
+    }
+
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active')); tab.classList.add('active');
-      panels.forEach(p => p.hidden = p.id !== tab.dataset.target);
-      // ARIA
-      tabs.forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected','false');
+        t.setAttribute('tabindex','-1');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected','true');
+      tab.setAttribute('tabindex','0');
+
+      panels.forEach(p => {
+        const visible = p.id === targetId;
+        p.hidden = !visible;
+        p.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      });
+      tab.focus();
     });
   });
 
-  // Gallery lightbox
+  // Gallery lightbox - accessible behavior
   const lightbox = document.getElementById('lightbox');
   const lbImg = lightbox && lightbox.querySelector('img');
+  const mainEl = document.querySelector('main');
   document.querySelectorAll('.gallery-item').forEach(btn => {
+    const img = btn.querySelector('img');
+    if(img && !btn.getAttribute('aria-label')) btn.setAttribute('aria-label', `Open image: ${img.alt || 'gallery image'}`);
     btn.addEventListener('click', () => {
       const src = btn.dataset.src;
       if(!lightbox || !lbImg) return;
-      lbImg.src = src; lightbox.removeAttribute('hidden');
+      lbImg.src = src;
+      lightbox.setAttribute('role','dialog');
+      lightbox.setAttribute('aria-modal','true');
+      lightbox.removeAttribute('hidden');
+      lightbox.setAttribute('aria-hidden','false');
+      if(mainEl) mainEl.setAttribute('aria-hidden','true');
       // focus trap minimal
       const closeBtn = lightbox.querySelector('.lb-close'); closeBtn && closeBtn.focus();
     });
   });
-  const closeLightbox = () => { if(!lightbox) return; lightbox.setAttribute('hidden',''); lightbox.querySelector('img').src = ''; };
+  const closeLightbox = () => { if(!lightbox) return; lightbox.setAttribute('hidden',''); lightbox.setAttribute('aria-hidden','true'); lightbox.querySelector('img').src = ''; if(mainEl) mainEl.removeAttribute('aria-hidden'); };
   document.querySelectorAll('.lb-close, #lightbox').forEach(el => el.addEventListener('click', (e) => {
     if(e.target === el || el.classList.contains('lb-close')) closeLightbox();
   }));
@@ -84,20 +119,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if(form){
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      // clear errors
+        // clear errors and aria-invalid states
       form.querySelectorAll('.error').forEach(el => el.textContent = '');
-      let valid = true;
-      const name = form.querySelector('#name');
-      const email = form.querySelector('#email');
-      const phone = form.querySelector('#phone');
-      const message = form.querySelector('#message');
+        const name = form.querySelector('#name');
+        const email = form.querySelector('#email');
+        const phone = form.querySelector('#phone');
+        const message = form.querySelector('#message');
+        [name,email,phone,message].forEach(el => { if(el) el.removeAttribute('aria-invalid'); });
 
-      if(!name.value || name.value.trim().length < 2){ document.getElementById('err-name').textContent = 'Please enter your name.'; valid = false; }
-      if(!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){ document.getElementById('err-email').textContent = 'Please enter a valid email.'; valid = false; }
-      if(phone.value && !/^[0-9+\-\s]{7,20}$/.test(phone.value)){ document.getElementById('err-phone').textContent = 'Please enter a valid phone number.'; valid = false; }
-      if(!message.value || message.value.trim().length < 10){ document.getElementById('err-message').textContent = 'Please enter a brief message (10+ chars).'; valid = false; }
+        let valid = true;
 
-      if(!valid){ status && (status.textContent = 'Please fix the errors above.'); return; }
+        if(!name.value || name.value.trim().length < 2){ document.getElementById('err-name').textContent = 'Please enter your name.'; name.setAttribute('aria-invalid','true'); valid = false; }
+        if(!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){ document.getElementById('err-email').textContent = 'Please enter a valid email.'; email.setAttribute('aria-invalid','true'); valid = false; }
+        if(phone.value && !/^[0-9+\-\s]{7,20}$/.test(phone.value)){ document.getElementById('err-phone').textContent = 'Please enter a valid phone number.'; phone.setAttribute('aria-invalid','true'); valid = false; }
+        if(!message.value || message.value.trim().length < 10){ document.getElementById('err-message').textContent = 'Please enter a brief message (10+ chars).'; message.setAttribute('aria-invalid','true'); valid = false; }
+
+        if(!valid){ status && (status.textContent = 'Please fix the errors above.'); return; }
 
       // show sending state
       const btn = form.querySelector('button[type="submit"]'); btn.disabled = true; const original = btn.textContent; btn.textContent = 'Sending…';
