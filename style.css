@@ -118,8 +118,9 @@ input:focus,textarea:focus{border-color:var(--accent);outline:none}
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:2rem;z-index:9999}
 /* Ensure hidden attribute actually hides overlay even when author CSS sets display */
 .lightbox[hidden]{display:none !important;visibility:hidden !important;pointer-events:none !important}
-.lightbox img{max-width:90%;max-height:80%;border-radius:10px}
-.lb-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;color:#fff;font-size:1.2rem;cursor:pointer}
+.lightbox img{max-width:90%;max-height:80%;border-radius:10px;z-index:10000}
+.lb-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;color:#fff;font-size:1.6rem;cursor:pointer;z-index:10001;padding:0.5rem;border-radius:50%;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.lb-close:focus{outline:2px solid #fff}
 
 /* section title styling */
 .section-title{font-size:1.5rem;margin:2rem 0 1.5rem;font-weight:700;text-align:center;color:#111}
