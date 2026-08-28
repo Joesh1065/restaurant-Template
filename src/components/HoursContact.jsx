@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { restaurantData } from '../data/restaurantData';
 
 export default function HoursContact() {
@@ -65,7 +66,12 @@ export default function HoursContact() {
   return (
     <section id="contact-section" className="hours-contact container">
       <div className="two-col">
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
           <h3>Opening Hours</h3>
           <table className="hours">
             <tbody>
@@ -91,9 +97,15 @@ export default function HoursContact() {
               loading="lazy"
             />
           </div>
-        </div>
+        </motion.div>
 
-        <div id="contact-form-section">
+        <motion.div
+          id="contact-form-section"
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+        >
           <h3>Contact & Reservation Enquiry</h3>
           <form id="contact-form" onSubmit={handleSubmit} noValidate>
             <div className="form-row">
@@ -110,9 +122,11 @@ export default function HoursContact() {
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? 'err-name' : undefined}
               />
-              <span className="error" id="err-name" aria-live="polite">
-                {errors.name}
-              </span>
+              {errors.name && (
+                <span className="error" id="err-name" aria-live="polite">
+                  {errors.name}
+                </span>
+              )}
             </div>
 
             <div className="form-row">
@@ -128,9 +142,11 @@ export default function HoursContact() {
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? 'err-email' : undefined}
               />
-              <span className="error" id="err-email" aria-live="polite">
-                {errors.email}
-              </span>
+              {errors.email && (
+                <span className="error" id="err-email" aria-live="polite">
+                  {errors.email}
+                </span>
+              )}
             </div>
 
             <div className="form-row">
@@ -145,9 +161,11 @@ export default function HoursContact() {
                 aria-invalid={!!errors.phone}
                 aria-describedby={errors.phone ? 'err-phone' : undefined}
               />
-              <span className="error" id="err-phone" aria-live="polite">
-                {errors.phone}
-              </span>
+              {errors.phone && (
+                <span className="error" id="err-phone" aria-live="polite">
+                  {errors.phone}
+                </span>
+              )}
             </div>
 
             <div className="form-row">
@@ -164,31 +182,41 @@ export default function HoursContact() {
                 aria-invalid={!!errors.message}
                 aria-describedby={errors.message ? 'err-message' : undefined}
               />
-              <span className="error" id="err-message" aria-live="polite">
-                {errors.message}
-              </span>
+              {errors.message && (
+                <span className="error" id="err-message" aria-live="polite">
+                  {errors.message}
+                </span>
+              )}
             </div>
 
             <div className="form-actions">
-              <button
+              <motion.button
                 type="submit"
                 className="btn btn-primary"
                 disabled={isSubmitting}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {isSubmitting ? 'Sending…' : 'Send Enquiry'}
-              </button>
-              {status.text && (
-                <div
-                  className={`form-status ${status.type}`}
-                  aria-live="polite"
-                  role="status"
-                >
-                  {status.text}
-                </div>
-              )}
+              </motion.button>
+              
+              <AnimatePresence>
+                {status.text && (
+                  <motion.div
+                    className={`form-status ${status.type}`}
+                    aria-live="polite"
+                    role="status"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    {status.text}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

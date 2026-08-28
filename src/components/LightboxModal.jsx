@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function LightboxModal({ isOpen, imageSrc, imageAlt, onClose }) {
   const closeButtonRef = useRef(null);
@@ -6,7 +7,6 @@ export default function LightboxModal({ isOpen, imageSrc, imageAlt, onClose }) {
   useEffect(() => {
     if (!isOpen) return;
 
-    // Focus close button on open
     if (closeButtonRef.current) {
       closeButtonRef.current.focus();
     }
@@ -21,31 +21,43 @@ export default function LightboxModal({ isOpen, imageSrc, imageAlt, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   return (
-    <div
-      className="lightbox"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Expanded image preview"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }}
-    >
-      <div className="lightbox-content">
-        <button
-          ref={closeButtonRef}
-          className="lb-close"
-          aria-label="Close image preview"
-          onClick={onClose}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded image preview"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              onClose();
+            }
+          }}
         >
-          ✕
-        </button>
-        <img src={imageSrc} alt={imageAlt || 'Gallery preview'} />
-      </div>
-    </div>
+          <motion.div
+            className="lightbox-content"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          >
+            <button
+              ref={closeButtonRef}
+              className="lb-close"
+              aria-label="Close image preview"
+              onClick={onClose}
+            >
+              ✕
+            </button>
+            <img src={imageSrc} alt={imageAlt || 'Gallery preview'} />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

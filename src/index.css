@@ -153,8 +153,11 @@ body {
 
 /* Mobile Nav Drawer */
 @media (max-width: 899px) {
-  .menu {
-    display: none;
+  .desktop-menu {
+    display: none !important;
+  }
+  .menu.open {
+    display: flex;
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 0;
@@ -166,9 +169,6 @@ body {
     flex-direction: column;
     gap: 0.25rem;
     border: 1px solid #f0f0f4;
-  }
-  .menu.open {
-    display: flex;
   }
 }
 

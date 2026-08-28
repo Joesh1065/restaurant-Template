@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,13 @@ export default function Header() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="site-header" id="top">
+      <motion.header
+        className="site-header"
+        id="top"
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
         <div className="container header-inner">
           <a
             href="#top"
@@ -35,12 +42,14 @@ export default function Header() {
             aria-label="Luna Bistro - home"
             onClick={(e) => handleLinkClick(e, 'top')}
           >
-            <svg
+            <motion.svg
               className="logo"
               width="40"
               height="40"
               viewBox="0 0 24 24"
               aria-hidden="true"
+              whileHover={{ rotate: 15 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 15 }}
             >
               <circle cx="12" cy="12" r="10" fill="#0b3d91" />
               <path
@@ -48,7 +57,7 @@ export default function Header() {
                 fill="#ffe5b4"
                 opacity="0.95"
               />
-            </svg>
+            </motion.svg>
             <span className="brand-text">Luna Bistro</span>
           </a>
 
@@ -64,36 +73,41 @@ export default function Header() {
               <span className="hamburger-line line-2"></span>
               <span className="hamburger-line line-3"></span>
             </button>
-            <ul id="primary-menu" className={`menu ${isOpen ? 'open' : ''}`}>
-              <li>
-                <a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#menu" onClick={(e) => handleLinkClick(e, 'menu')}>
-                  Menu
-                </a>
-              </li>
-              <li>
-                <a href="#gallery" onClick={(e) => handleLinkClick(e, 'gallery')}>
-                  Gallery
-                </a>
-              </li>
-              <li>
-                <a href="#reviews" onClick={(e) => handleLinkClick(e, 'reviews')}>
-                  Reviews
-                </a>
-              </li>
-              <li>
-                <a href="#contact-section" onClick={(e) => handleLinkClick(e, 'contact-section')}>
-                  Contact
-                </a>
-              </li>
+
+            {/* Desktop Menu */}
+            <ul id="primary-menu" className="menu desktop-menu">
+              {['about', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
+                <li key={id}>
+                  <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
+                    {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
+                  </a>
+                </li>
+              ))}
             </ul>
+
+            {/* Mobile Animated Drawer */}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.ul
+                  className="menu open"
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {['about', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
+                    <li key={id}>
+                      <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
+                        {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
+                      </a>
+                    </li>
+                  ))}
+                </motion.ul>
+              )}
+            </AnimatePresence>
           </nav>
         </div>
-      </header>
+      </motion.header>
     </>
   );
 }
