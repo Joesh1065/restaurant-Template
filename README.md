@@ -48,6 +48,20 @@ To preview the production build locally:
 npm run preview
 ```
 
+### GitHub Pages Deployment
+
+This repository is preconfigured for automatic GitHub Pages deployment using GitHub Actions (`.github/workflows/deploy.yml`):
+
+1. Push your changes to GitHub on the `main` branch.
+2. In your GitHub repository, go to **Settings** > **Pages**.
+3. Under **Build and deployment** > **Source**, select **GitHub Actions**.
+4. GitHub Actions will automatically build and deploy the React application with relative base asset paths.
+
+Alternatively, you can deploy manually using `gh-pages`:
+```bash
+npm run deploy
+```
+
 ---
 
 ## Project Structure
