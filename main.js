@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const src = btn.dataset.src;
       if(!lightbox || !lbImg) return;
+      // remember last focused element to restore focus on close
+      window.__lastFocusedBeforeLightbox = document.activeElement;
       lbImg.src = src;
       lightbox.setAttribute('role','dialog');
       lightbox.setAttribute('aria-modal','true');
@@ -90,10 +92,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const closeBtn = lightbox.querySelector('.lb-close'); closeBtn && closeBtn.focus();
     });
   });
-  const closeLightbox = () => { if(!lightbox) return; lightbox.setAttribute('hidden',''); lightbox.setAttribute('aria-hidden','true'); lightbox.querySelector('img').src = ''; if(mainEl) mainEl.removeAttribute('aria-hidden'); };
-  document.querySelectorAll('.lb-close, #lightbox').forEach(el => el.addEventListener('click', (e) => {
-    if(e.target === el || el.classList.contains('lb-close')) closeLightbox();
-  }));
+  const closeLightbox = () => {
+    if(!lightbox) return;
+    lightbox.setAttribute('hidden','');
+    lightbox.setAttribute('aria-hidden','true');
+    const imgEl = lightbox.querySelector('img'); if(imgEl) imgEl.src = '';
+    if(mainEl) mainEl.removeAttribute('aria-hidden');
+    // restore focus
+    try { if(window.__lastFocusedBeforeLightbox && window.__lastFocusedBeforeLightbox.focus) window.__lastFocusedBeforeLightbox.focus(); } catch(e){}
+  };
+
+  // close when clicking close button or backdrop
+  const lbCloseBtn = document.querySelector('.lb-close');
+  if(lbCloseBtn) lbCloseBtn.addEventListener('click', (e) => { e.preventDefault(); closeLightbox(); });
+  const lbOverlay = document.getElementById('lightbox');
+  if(lbOverlay) lbOverlay.addEventListener('click', (e) => { if(e.target === lbOverlay) closeLightbox(); });
   document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
 
   // Reviews slider simple
