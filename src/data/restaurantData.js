@@ -159,16 +159,19 @@ export const restaurantData = {
   reviews: [
     {
       id: "r1",
+      rating: 5,
       quote: "Luna Bistro sets a new standard for modern Indian fine dining. Impeccable presentation, complex flavors, and a sublime wine pairing list.",
       author: "Priya R. — Food Critic"
     },
     {
       id: "r2",
+      rating: 5,
       quote: "The atmosphere is magnetic, intimate, and sophisticated. The Heritage Butter Chicken and Smoke Old Fashioned are unforgettable.",
       author: "Rahul K. — Connoisseur"
     },
     {
       id: "r3",
+      rating: 5,
       quote: "An extraordinary dining experience where traditional spice routes meet modern culinary brilliance. Every dish tells a story.",
       author: "Anjali S. — Epicurean"
     }

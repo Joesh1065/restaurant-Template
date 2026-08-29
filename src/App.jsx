@@ -10,8 +10,12 @@ import Reviews from './components/Reviews';
 import HoursContact from './components/HoursContact';
 import Footer from './components/Footer';
 import LightboxModal from './components/LightboxModal';
+import AddReviewModal from './components/AddReviewModal';
+import { restaurantData } from './data/restaurantData';
 
 export default function App() {
+  const [reviews, setReviews] = useState(restaurantData.reviews);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [lightbox, setLightbox] = useState({
     isOpen: false,
     imageSrc: '',
@@ -30,6 +34,10 @@ export default function App() {
     setLightbox((prev) => ({ ...prev, isOpen: false }));
   };
 
+  const handleAddReview = (newReview) => {
+    setReviews((prev) => [newReview, ...prev]);
+  };
+
   return (
     <div className="app-root theme-light">
       <Header />
@@ -41,7 +49,10 @@ export default function App() {
         <Menu />
         <About />
         <Gallery onImageClick={handleOpenLightbox} />
-        <Reviews />
+        <Reviews
+          reviews={reviews}
+          onOpenReviewModal={() => setIsReviewModalOpen(true)}
+        />
         <HoursContact />
       </main>
 
@@ -52,6 +63,12 @@ export default function App() {
         imageSrc={lightbox.imageSrc}
         imageAlt={lightbox.imageAlt}
         onClose={handleCloseLightbox}
+      />
+
+      <AddReviewModal
+        isOpen={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
+        onAddReview={handleAddReview}
       />
     </div>
   );
