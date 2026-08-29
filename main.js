@@ -70,53 +70,99 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Gallery lightbox - accessible behavior
+  // Gallery lightbox - accessible behavior (improved)
   const lightbox = document.getElementById('lightbox');
   const lbImg = lightbox && lightbox.querySelector('img');
   const mainEl = document.querySelector('main');
-  document.querySelectorAll('.gallery-item').forEach(btn => {
-    const img = btn.querySelector('img');
-    if(img && !btn.getAttribute('aria-label')) btn.setAttribute('aria-label', `Open image: ${img.alt || 'gallery image'}`);
-    btn.addEventListener('click', () => {
-      const src = btn.dataset.src;
-      if(!lightbox || !lbImg) return;
-      // remember last focused element to restore focus on close
-      window.__lastFocusedBeforeLightbox = document.activeElement;
-      lbImg.src = src;
-      lightbox.setAttribute('role','dialog');
-      lightbox.setAttribute('aria-modal','true');
-      lightbox.removeAttribute('hidden');
-      lightbox.setAttribute('aria-hidden','false');
-      if(mainEl) mainEl.setAttribute('aria-hidden','true');
-      // focus trap minimal
-      const closeBtn = lightbox.querySelector('.lb-close'); closeBtn && closeBtn.focus();
-    });
-  });
-  const closeLightbox = () => {
+  const headerEl = document.querySelector('header.site-header');
+  const footerEl = document.querySelector('footer.site-footer');
+  let _lightboxKeyHandler = null;
+
+  function openLightbox(src){
+    if(!lightbox || !lbImg) return;
+    window.__lastFocusedBeforeLightbox = document.activeElement;
+    lbImg.src = src;
+    lightbox.setAttribute('role','dialog');
+    lightbox.setAttribute('aria-modal','true');
+    lightbox.removeAttribute('hidden');
+    lightbox.setAttribute('aria-hidden','false');
+    if(mainEl) mainEl.setAttribute('aria-hidden','true');
+    if(headerEl) headerEl.setAttribute('aria-hidden','true');
+    if(footerEl) footerEl.setAttribute('aria-hidden','true');
+    document.body.classList.add('no-scroll');
+
+    // focus first focusable element inside lightbox
+    const closeBtn = lightbox.querySelector('.lb-close');
+    if(closeBtn) closeBtn.focus();
+
+    // minimal keyboard focus trap (tabs loop within lightbox)
+    _lightboxKeyHandler = function(e){
+      if(e.key === 'Tab'){
+        const focusables = Array.from(lightbox.querySelectorAll('a[href],button,textarea,input,select,[tabindex]:not([tabindex="-1"])')).filter(el => !el.hasAttribute('disabled'));
+        if(focusables.length === 0){ e.preventDefault(); return; }
+        const first = focusables[0];
+        const last = focusables[focusables.length-1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+      if(e.key === 'Escape'){
+        e.preventDefault(); closeLightbox();
+      }
+    };
+    document.addEventListener('keydown', _lightboxKeyHandler);
+  }
+
+  function closeLightbox(){
     if(!lightbox) return;
     lightbox.setAttribute('hidden','');
     lightbox.setAttribute('aria-hidden','true');
     const imgEl = lightbox.querySelector('img'); if(imgEl) imgEl.src = '';
     if(mainEl) mainEl.removeAttribute('aria-hidden');
-    // restore focus
+    if(headerEl) headerEl.removeAttribute('aria-hidden');
+    if(footerEl) footerEl.removeAttribute('aria-hidden');
+    document.body.classList.remove('no-scroll');
+    if(_lightboxKeyHandler) document.removeEventListener('keydown', _lightboxKeyHandler);
+    _lightboxKeyHandler = null;
     try { if(window.__lastFocusedBeforeLightbox && window.__lastFocusedBeforeLightbox.focus) window.__lastFocusedBeforeLightbox.focus(); } catch(e){}
-  };
+  }
+
+  document.querySelectorAll('.gallery-item').forEach(btn => {
+    const img = btn.querySelector('img');
+    if(img && !btn.getAttribute('aria-label')) btn.setAttribute('aria-label', `Open image: ${img.alt || 'gallery image'}`);
+    btn.addEventListener('click', () => {
+      const src = btn.dataset.src;
+      openLightbox(src);
+    });
+  });
 
   // close when clicking close button or backdrop
   const lbCloseBtn = document.querySelector('.lb-close');
   if(lbCloseBtn) lbCloseBtn.addEventListener('click', (e) => { e.preventDefault(); closeLightbox(); });
   const lbOverlay = document.getElementById('lightbox');
   if(lbOverlay) lbOverlay.addEventListener('click', (e) => { if(e.target === lbOverlay) closeLightbox(); });
-  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
+  // keep existing global ESC fallback removed here because trap handles it while open
+  
 
   // Reviews slider simple
   const slidesWrap = document.querySelector('.slides');
   const slides = slidesWrap ? Array.from(slidesWrap.children) : [];
   let current = 0;
+  // create sr-only announcer for screen readers
+  let sliderAnnouncer = null;
+  const reviewsContainer = document.querySelector('.reviews-slider');
+  if(reviewsContainer){
+    sliderAnnouncer = document.getElementById('slider-announcer');
+    if(!sliderAnnouncer){ sliderAnnouncer = document.createElement('div'); sliderAnnouncer.id = 'slider-announcer'; sliderAnnouncer.className = 'sr-only'; reviewsContainer.appendChild(sliderAnnouncer); }
+  }
   const showSlide = (idx) => {
     if(!slidesWrap) return;
     current = (idx + slides.length) % slides.length;
     slidesWrap.style.transform = `translateX(-${current*100}%)`;
+    // announce current slide for screen reader
+    try{
+      const text = slides[current].querySelector('blockquote')?.innerText?.trim() || slides[current].innerText.trim();
+      if(sliderAnnouncer) sliderAnnouncer.textContent = `Review ${current+1} of ${slides.length}: ${text}`;
+    }catch(e){}
   }
   showSlide(0);
   const prevBtn = document.querySelector('.slider-btn.prev');
