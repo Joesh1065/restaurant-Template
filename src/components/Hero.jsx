@@ -40,6 +40,9 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
         >
+          <motion.div className="badge-pill" variants={itemVariants}>
+            ✨ {restaurantData.badge}
+          </motion.div>
           <motion.h1 className="title" variants={itemVariants}>
             {restaurantData.name} — {restaurantData.tagline}
           </motion.h1>
@@ -63,7 +66,7 @@ export default function Hero() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
             >
-              View Menu
+              Explore Menu
             </motion.a>
           </motion.div>
         </motion.div>
@@ -80,7 +83,7 @@ export default function Hero() {
             loading="eager"
             onError={(e) => {
               e.currentTarget.src =
-                'https://via.placeholder.com/900x600?text=Luna+Bistro+Modern+Dining';
+                'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000&q=80';
             }}
           />
         </motion.div>

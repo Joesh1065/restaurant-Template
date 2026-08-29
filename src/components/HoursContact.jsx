@@ -57,7 +57,7 @@ export default function HoursContact() {
       setIsSubmitting(false);
       setStatus({
         type: 'success',
-        text: 'Thanks — your enquiry has been received! We will reply shortly.'
+        text: 'Thanks — your enquiry has been received! Our concierge will reply shortly.'
       });
       setFormData({ name: '', email: '', phone: '', message: '' });
     }, 1100);
@@ -67,6 +67,7 @@ export default function HoursContact() {
     <section id="contact-section" className="hours-contact container">
       <div className="two-col">
         <motion.div
+          className="hours-card"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -84,10 +85,10 @@ export default function HoursContact() {
             </tbody>
           </table>
 
-          <h3>Location</h3>
+          <h3>Location & Contact</h3>
           <address>
             {restaurantData.contact.address}<br />
-            <a href={restaurantData.contact.phoneUrl}>{restaurantData.contact.phone}</a>
+            Direct Line: <a href={restaurantData.contact.phoneUrl}>{restaurantData.contact.phone}</a>
           </address>
 
           <div className="map" aria-hidden="true">
@@ -101,22 +102,23 @@ export default function HoursContact() {
 
         <motion.div
           id="contact-form-section"
+          className="contact-card"
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
         >
-          <h3>Contact & Reservation Enquiry</h3>
+          <h3>Table Reservation & Enquiry</h3>
           <form id="contact-form" onSubmit={handleSubmit} noValidate>
             <div className="form-row">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Full Name</label>
               <input
                 id="name"
                 name="name"
                 type="text"
                 required
                 minLength={2}
-                placeholder="Your name"
+                placeholder="e.g. Priya Sharma"
                 value={formData.name}
                 onChange={handleChange}
                 aria-invalid={!!errors.name}
@@ -130,13 +132,13 @@ export default function HoursContact() {
             </div>
 
             <div className="form-row">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email Address</label>
               <input
                 id="email"
                 name="email"
                 type="email"
                 required
-                placeholder="you@domain.com"
+                placeholder="priya@example.com"
                 value={formData.email}
                 onChange={handleChange}
                 aria-invalid={!!errors.email}
@@ -150,7 +152,7 @@ export default function HoursContact() {
             </div>
 
             <div className="form-row">
-              <label htmlFor="phone">Phone (optional)</label>
+              <label htmlFor="phone">Phone Number (optional)</label>
               <input
                 id="phone"
                 name="phone"
@@ -169,14 +171,14 @@ export default function HoursContact() {
             </div>
 
             <div className="form-row">
-              <label htmlFor="message">Message / Reservation Details</label>
+              <label htmlFor="message">Reservation Details / Special Requests</label>
               <textarea
                 id="message"
                 name="message"
                 rows={4}
                 required
                 minLength={10}
-                placeholder="Preferred date, time, party size..."
+                placeholder="Date, preferred time, number of guests, dietary preferences..."
                 value={formData.message}
                 onChange={handleChange}
                 aria-invalid={!!errors.message}
@@ -192,12 +194,12 @@ export default function HoursContact() {
             <div className="form-actions">
               <motion.button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-gold"
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {isSubmitting ? 'Sending…' : 'Send Enquiry'}
+                {isSubmitting ? 'Submitting…' : 'Request Reservation'}
               </motion.button>
               
               <AnimatePresence>

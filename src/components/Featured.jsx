@@ -31,8 +31,9 @@ export default function Featured() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        Featured Dishes
+        Featured Culinary Highlights
       </motion.h2>
+      <p className="section-subtitle">A curated selection of our signature creations</p>
 
       <motion.div
         className="grid featured-grid"
@@ -46,20 +47,27 @@ export default function Featured() {
             key={dish.id}
             className="card"
             variants={cardVariants}
-            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            whileHover={{ y: -6, transition: { duration: 0.25 } }}
           >
-            <img
-              loading="lazy"
-              src={dish.image}
-              alt={dish.title}
-              onError={(e) => {
-                e.currentTarget.src =
-                  'https://via.placeholder.com/600x400?text=' +
-                  encodeURIComponent(dish.title);
-              }}
-            />
-            <h3 className="card-title">{dish.title}</h3>
-            <p className="muted">{dish.description}</p>
+            <div className="card-img-wrapper">
+              <img
+                loading="lazy"
+                src={dish.image}
+                alt={dish.title}
+                onError={(e) => {
+                  e.currentTarget.src =
+                    'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80';
+                }}
+              />
+              {dish.tag && <span className="card-tag">{dish.tag}</span>}
+            </div>
+            <div className="card-body">
+              <div className="card-header-row">
+                <h3 className="card-title">{dish.title}</h3>
+                <span className="card-price">{dish.price}</span>
+              </div>
+              <p className="muted">{dish.description}</p>
+            </div>
           </motion.article>
         ))}
       </motion.div>

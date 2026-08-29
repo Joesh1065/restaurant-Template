@@ -15,9 +15,10 @@ export default function Menu() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        Full Menu
+        Full Dining Menu
       </motion.h2>
-      
+      <p className="section-subtitle">Exquisite multi-course offerings crafted daily</p>
+
       <div className="menu-controls" role="tablist" aria-label="Menu categories">
         {restaurantData.menuCategories.map((category) => {
           const isActive = activeCategory === category.id;
@@ -65,7 +66,10 @@ export default function Menu() {
                       transition={{ duration: 0.3, delay: idx * 0.05 }}
                     >
                       <div className="menu-list-header">
-                        <span className="dish">{item.name}</span>
+                        <div className="dish-wrap">
+                          <span className="dish">{item.name}</span>
+                          {item.badge && <span className="dish-badge">{item.badge}</span>}
+                        </div>
                         <span className="price">{item.price}</span>
                       </div>
                       <p className="desc">{item.description}</p>
