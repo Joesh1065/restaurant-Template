@@ -32,11 +32,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Clear npm cache
-        run: npm cache clean --force
-
       - name: Install dependencies
-        run: npm install --verbose --prefer-online
+        run: npm install --no-package-lock --no-audit --no-fund
 
       - name: Build project
         run: npm run build
