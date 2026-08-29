@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
-export default function Reviews({ reviews, onOpenReviewModal }) {
+export default function Reviews({ reviews = [], onOpenReviewModal }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const timerRef = useRef(null);
+
+  const avgRating = reviews.length > 0
+    ? (reviews.reduce((acc, r) => acc + (r.rating || 5), 0) / reviews.length).toFixed(1)
+    : '5.0';
 
   const startTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -74,7 +78,7 @@ export default function Reviews({ reviews, onOpenReviewModal }) {
             Guest Reviews & Ratings
           </motion.h2>
           <p className="section-subtitle" style={{ textAlign: 'left', margin: 0 }}>
-            ★ 5.0 Average Rating based on guest experiences
+            ★ {avgRating} Average Rating based on {reviews.length} guest review{reviews.length !== 1 ? 's' : ''}
           </p>
         </div>
 
