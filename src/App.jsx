@@ -5,6 +5,7 @@ import Intro from './components/Intro';
 import Featured from './components/Featured';
 import Menu from './components/Menu';
 import About from './components/About';
+import Portfolio from './components/Portfolio';
 import Gallery from './components/Gallery';
 import Reviews from './components/Reviews';
 import HoursContact from './components/HoursContact';
@@ -48,6 +49,7 @@ export default function App() {
         <Featured />
         <Menu />
         <About />
+        <Portfolio />
         <Gallery onImageClick={handleOpenLightbox} />
         <Reviews
           reviews={reviews}

@@ -40,6 +40,11 @@ export default function Footer() {
               </a>
             </li>
             <li>
+              <a href="#portfolio" onClick={(e) => handleLinkClick(e, 'portfolio')}>
+                Portfolio
+              </a>
+            </li>
+            <li>
               <a href="#gallery" onClick={(e) => handleLinkClick(e, 'gallery')}>
                 Gallery
               </a>

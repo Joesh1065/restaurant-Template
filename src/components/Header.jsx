@@ -76,7 +76,7 @@ export default function Header() {
 
             {/* Desktop Menu */}
             <ul id="primary-menu" className="menu desktop-menu">
-              {['about', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
+              {['about', 'portfolio', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
                 <li key={id}>
                   <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
                     {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
@@ -95,7 +95,7 @@ export default function Header() {
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {['about', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
+                  {['about', 'portfolio', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
                     <li key={id}>
                       <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
                         {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
