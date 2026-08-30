@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,9 +79,15 @@ export default function Header() {
             <ul id="primary-menu" className="menu desktop-menu">
               {['about', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
                 <li key={id}>
-                  <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
-                    {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
-                  </a>
+                  {id === 'menu' ? (
+                    <Link to="/menu" onClick={() => setIsOpen(false)}>
+                      Menu
+                    </Link>
+                  ) : (
+                    <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
+                      {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -95,13 +102,19 @@ export default function Header() {
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {['about', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
-                    <li key={id}>
-                      <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
-                        {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
-                      </a>
-                    </li>
-                  ))}
+                    {['about', 'menu', 'gallery', 'reviews', 'contact-section'].map((id) => (
+                      <li key={id}>
+                        {id === 'menu' ? (
+                          <Link to="/menu" onClick={() => setIsOpen(false)}>
+                            Menu
+                          </Link>
+                        ) : (
+                          <a href={`#${id}`} onClick={(e) => handleLinkClick(e, id)}>
+                            {id === 'contact-section' ? 'Contact' : id.charAt(0).toUpperCase() + id.slice(1)}
+                          </a>
+                        )}
+                      </li>
+                    ))}
                 </motion.ul>
               )}
             </AnimatePresence>

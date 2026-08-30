@@ -13,9 +13,8 @@ export default function Home({ reviews, onOpenReviewModal, onImageClick }) {
     <main id="main">
       <Hero />
       <Intro />
-      <Featured />
-      <Menu />
-      <About />
+       <Featured />
+       <About />
       <Gallery onImageClick={onImageClick} />
       <Reviews
         reviews={reviews}
