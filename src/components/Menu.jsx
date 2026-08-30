@@ -61,18 +61,29 @@ export default function Menu() {
                   {items.map((item, idx) => (
                     <motion.li
                       key={item.id}
+                      className="menu-item"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: idx * 0.05 }}
                     >
-                      <div className="menu-list-header">
-                        <div className="dish-wrap">
-                          <span className="dish">{item.name}</span>
-                          {item.badge && <span className="dish-badge">{item.badge}</span>}
+                      {item.image && (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="menu-item-img"
+                          loading="lazy"
+                        />
+                      )}
+                      <div className="menu-item-content">
+                        <div className="menu-list-header">
+                          <div className="dish-wrap">
+                            <span className="dish">{item.name}</span>
+                            {item.badge && <span className="dish-badge">{item.badge}</span>}
+                          </div>
+                          <span className="price">{item.price}</span>
                         </div>
-                        <span className="price">{item.price}</span>
+                        <p className="desc">{item.description}</p>
                       </div>
-                      <p className="desc">{item.description}</p>
                     </motion.li>
                   ))}
                 </ul>

@@ -48,21 +48,24 @@ export const restaurantData = {
         name: "Crisp Truffle Paneer Chaat",
         badge: "Vegetarian",
         price: "₹320",
-        description: "Artisanal cottage cheese crispies, tamarind glaze, smoked mint gel, truffle snow."
+        description: "Artisanal cottage cheese crispies, tamarind glaze, smoked mint gel, truffle snow.",
+        image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80&auto=format&fit=crop"
       },
       {
         id: "s2",
         name: "Charcoal Tandoori Cauliflower",
         badge: "Chef's Pick",
         price: "₹380",
-        description: "Saffron yogurt marinade, gunpowder spice blend, curry leaf emulsion."
+        description: "Saffron yogurt marinade, gunpowder spice blend, curry leaf emulsion.",
+        image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80&auto=format&fit=crop"
       },
       {
         id: "s3",
         name: "Malabar Pepper Prawns",
         badge: "Seafood",
         price: "₹420",
-        description: "Jumbo prawns tossed with Tellicherry black pepper, curry leaves, and Meyer lemon."
+        description: "Jumbo prawns tossed with Tellicherry black pepper, curry leaves, and Meyer lemon.",
+        image: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=400&q=80&auto=format&fit=crop"
       }
     ],
     mains: [
@@ -71,21 +74,24 @@ export const restaurantData = {
         name: "Heritage Velvet Butter Chicken",
         badge: "Signature",
         price: "₹520",
-        description: "San Marzano tomatoes, organic fenugreek, aged ghee — includes garlic tandoori naan."
+        description: "San Marzano tomatoes, organic fenugreek, aged ghee — includes garlic tandoori naan.",
+        image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80&auto=format&fit=crop"
       },
       {
         id: "m2",
         name: "Goan Kingfish Kokum Curry",
         badge: "Coastal Classic",
         price: "₹560",
-        description: "Fresh coastal kingfish, coconut cream extract, wild kokum — served with fragrant basmati."
+        description: "Fresh coastal kingfish, coconut cream extract, wild kokum — served with fragrant basmati.",
+        image: "https://images.unsplash.com/photo-1567337710282-00832b415979?w=400&q=80&auto=format&fit=crop"
       },
       {
         id: "m3",
         name: "Artisanal Masala Dosa",
         badge: "Vegetarian",
         price: "₹280",
-        description: "Golden fermented crepe, spiced potato mash, coconut sambar, three house chutneys."
+        description: "Golden fermented crepe, spiced potato mash, coconut sambar, three house chutneys.",
+        image: "https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&q=80&auto=format&fit=crop"
       }
     ],
     desserts: [
@@ -94,14 +100,16 @@ export const restaurantData = {
         name: "Kashmiri Saffron & Rose Panna Cotta",
         badge: "House Favorite",
         price: "₹260",
-        description: "Pistachio crumb, citrus pearls, damask rose syrup infusion."
+        description: "Pistachio crumb, citrus pearls, damask rose syrup infusion.",
+        image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80&auto=format&fit=crop"
       },
       {
         id: "d2",
         name: "Deconstructed Gulab Jamun Cheesecake",
         badge: "Fusion",
         price: "₹290",
-        description: "Baked cardamom cheesecake layered with warm gulab jamun and pistachio gelato."
+        description: "Baked cardamom cheesecake layered with warm gulab jamun and pistachio gelato.",
+        image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&q=80&auto=format&fit=crop"
       }
     ],
     drinks: [
@@ -110,14 +118,16 @@ export const restaurantData = {
         name: "Cardamom & Smoke Old Fashioned",
         badge: "Craft Cocktail",
         price: "₹380",
-        description: "Small-batch bourbon, smoked black cardamom syrup, orange bitters."
+        description: "Small-batch bourbon, smoked black cardamom syrup, orange bitters.",
+        image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80&auto=format&fit=crop"
       },
       {
         id: "dr2",
         name: "Artisanal Royal Masala Chai",
         badge: "Traditional",
         price: "₹120",
-        description: "Single-estate Assam tea slow-brewed with fresh ginger, green cardamom, and clove."
+        description: "Single-estate Assam tea slow-brewed with fresh ginger, green cardamom, and clove.",
+        image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&q=80&auto=format&fit=crop"
       }
     ]
   },
