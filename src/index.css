@@ -122,6 +122,14 @@ h1, h2, h3, h4, .font-serif {
   position: relative;
 }
 
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+}
+
 .nav-toggle {
   display: inline-flex;
   flex-direction: column;
@@ -185,7 +193,10 @@ h1, h2, h3, h4, .font-serif {
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 0;
-    width: 220px;
+    left: auto;
+    width: min(220px, calc(100vw - 2rem));
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
     background: #ffffff;
     box-shadow: var(--soft-shadow);
     border-radius: 12px;
@@ -193,6 +204,45 @@ h1, h2, h3, h4, .font-serif {
     flex-direction: column;
     gap: 0.35rem;
     border: 1px solid var(--border-color);
+    z-index: 200;
+  }
+  .menu.open a {
+    display: block;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.95rem;
+  }
+  .hero-media img {
+    height: 240px;
+  }
+  .title {
+    font-size: 1.85rem;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+  .section-title {
+    font-size: 1.6rem;
+    margin-top: 2.5rem;
+  }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .header-inner {
+    gap: 0.5rem;
+  }
+  .brand-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-media img {
+    height: 200px;
+  }
+  .menu.open {
+    width: calc(100vw - 2rem);
+    right: 1rem;
   }
 }
 
