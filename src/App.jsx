@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Intro from './components/Intro';
-import Featured from './components/Featured';
-import Menu from './components/Menu';
-import About from './components/About';
-import Gallery from './components/Gallery';
-import Reviews from './components/Reviews';
-import HoursContact from './components/HoursContact';
 import Footer from './components/Footer';
 import LightboxModal from './components/LightboxModal';
 import AddReviewModal from './components/AddReviewModal';
 import { restaurantData } from './data/restaurantData';
+import Home from './pages/Home';
+import MenuPage from './pages/MenuPage';
 
 export default function App() {
   const [reviews, setReviews] = useState(restaurantData.reviews);
@@ -39,37 +34,39 @@ export default function App() {
   };
 
   return (
-    <div className="app-root theme-light">
-      <Header />
+    <Router>
+      <div className="app-root theme-light">
+        <Header />
 
-      <main id="main">
-        <Hero />
-        <Intro />
-        <Featured />
-        <Menu />
-        <About />
-        <Gallery onImageClick={handleOpenLightbox} />
-        <Reviews
-          reviews={reviews}
-          onOpenReviewModal={() => setIsReviewModalOpen(true)}
+        <Routes>
+          <Route 
+            path="/" 
+            element={
+              <Home 
+                reviews={reviews} 
+                onOpenReviewModal={() => setIsReviewModalOpen(true)} 
+                onImageClick={handleOpenLightbox} 
+              />
+            } 
+          />
+          <Route path="/menu" element={<MenuPage />} />
+        </Routes>
+
+        <Footer />
+
+        <LightboxModal
+          isOpen={lightbox.isOpen}
+          imageSrc={lightbox.imageSrc}
+          imageAlt={lightbox.imageAlt}
+          onClose={handleCloseLightbox}
         />
-        <HoursContact />
-      </main>
 
-      <Footer />
-
-      <LightboxModal
-        isOpen={lightbox.isOpen}
-        imageSrc={lightbox.imageSrc}
-        imageAlt={lightbox.imageAlt}
-        onClose={handleCloseLightbox}
-      />
-
-      <AddReviewModal
-        isOpen={isReviewModalOpen}
-        onClose={() => setIsReviewModalOpen(false)}
-        onAddReview={handleAddReview}
-      />
-    </div>
+        <AddReviewModal
+          isOpen={isReviewModalOpen}
+          onClose={() => setIsReviewModalOpen(false)}
+          onAddReview={handleAddReview}
+        />
+      </div>
+    </Router>
   );
 }

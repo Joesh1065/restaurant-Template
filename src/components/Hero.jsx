@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { restaurantData } from '../data/restaurantData';
 
 export default function Hero() {
@@ -59,15 +60,21 @@ export default function Hero() {
             >
               Reserve a Table
             </motion.a>
-            <motion.a
-              className="btn btn-outline"
-              href="#menu"
-              onClick={(e) => handleScroll(e, 'menu')}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Explore Menu
-            </motion.a>
+            <motion.div>
+              <Link
+                to="/menu"
+                className="btn btn-outline"
+                style={{ textDecoration: 'none', display: 'inline-block' }}
+              >
+                <motion.span
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{ display: 'block' }}
+                >
+                  Explore Menu
+                </motion.span>
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
 
