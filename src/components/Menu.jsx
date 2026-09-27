@@ -3,7 +3,21 @@ import { motion, AnimatePresence } from 'motion/react';
 import { restaurantData } from '../data/restaurantData';
 
 export default function Menu() {
-  const [activeCategory, setActiveCategory] = useState('starters');
+  const categories = restaurantData.menuCategories;
+  const [activeCategory, setActiveCategory] = useState(categories[0]?.id || 'starters');
+
+  const activeIndex = categories.findIndex((c) => c.id === activeCategory);
+  const activeCat = categories[activeIndex] || categories[0];
+  const items = restaurantData.menuItems[activeCat.id] || [];
+
+  const handleKeyDown = (e, idx) => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    const dir = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1;
+    const next = (idx + dir + categories.length) % categories.length;
+    setActiveCategory(categories[next].id);
+    document.getElementById(`tab-${categories[next].id}`)?.focus();
+  };
 
   return (
     <section id="menu" className="menu container" aria-labelledby="menu-heading">
@@ -17,69 +31,86 @@ export default function Menu() {
       >
         Full Dining Menu
       </motion.h2>
-      <p className="section-subtitle">Exquisite multi-course offerings crafted daily</p>
+      <p className="section-subtitle">Select a cuisine on the left to explore its dishes</p>
 
-      <div className="menu-controls" role="tablist" aria-label="Menu categories">
-        {restaurantData.menuCategories.map((category) => {
-          const isActive = activeCategory === category.id;
-          return (
-            <button
-              key={category.id}
-              id={`tab-${category.id}`}
-              className={`tab ${isActive ? 'active' : ''}`}
-              role="tab"
-              aria-selected={isActive}
-              aria-controls={`panel-${category.id}`}
-              tabIndex={isActive ? 0 : -1}
-              onClick={() => setActiveCategory(category.id)}
-            >
-              {category.label}
-            </button>
-          );
-        })}
-      </div>
+      <div className="menu-table" role="table" aria-label="Restaurant menu by cuisine">
+        {/* Table header row */}
+        <div className="menu-table-header" role="row">
+          <div className="menu-table-th menu-table-th--cuisine" role="columnheader">
+            Cuisines
+          </div>
+          <div className="menu-table-th menu-table-th--dishes" role="columnheader">
+            {activeCat.label}
+            <span className="menu-table-count">{items.length} dishes</span>
+          </div>
+        </div>
 
-      <div className="menu-panels">
-        <AnimatePresence mode="wait">
-          {restaurantData.menuCategories.map((category) => {
-            if (activeCategory !== category.id) return null;
-            const items = restaurantData.menuItems[category.id] || [];
+        {/* Table body row: two columns */}
+        <div className="menu-table-body" role="rowgroup">
+          {/* Column 1 — all cuisine types */}
+          <div
+            className="menu-table-cuisines"
+            role="tablist"
+            aria-orientation="vertical"
+            aria-label="Menu cuisines"
+          >
+            {categories.map((category, idx) => {
+              const isActive = activeCategory === category.id;
+              const count = (restaurantData.menuItems[category.id] || []).length;
+              return (
+                <button
+                  key={category.id}
+                  id={`tab-${category.id}`}
+                  className={`cuisine-row ${isActive ? 'active' : ''}`}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`panel-${category.id}`}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => setActiveCategory(category.id)}
+                  onKeyDown={(e) => handleKeyDown(e, idx)}
+                >
+                  <span className="cuisine-row-label">{category.label}</span>
+                  <span className="cuisine-row-count">{count}</span>
+                </button>
+              );
+            })}
+          </div>
 
-            return (
+          {/* Column 2 — dishes + images for selected cuisine */}
+          <div className="menu-table-dishes">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={category.id}
-                id={`panel-${category.id}`}
-                className="menu-panel"
+                key={activeCat.id}
+                id={`panel-${activeCat.id}`}
                 role="tabpanel"
-                aria-labelledby={`tab-${category.id}`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                aria-labelledby={`tab-${activeCat.id}`}
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -12 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
               >
-                <ul className="menu-list">
+                <ul className="menu-dish-grid">
                   {items.map((item, idx) => (
                     <motion.li
                       key={item.id}
-                      className="menu-item"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      className="dish-card"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: idx * 0.05 }}
                     >
                       {item.image && (
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="menu-item-img"
-                          loading="lazy"
-                        />
+                        <div className="dish-card-media">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            loading="lazy"
+                          />
+                          {item.badge && <span className="dish-badge dish-badge--overlay">{item.badge}</span>}
+                        </div>
                       )}
-                      <div className="menu-item-content">
-                        <div className="menu-list-header">
-                          <div className="dish-wrap">
-                            <span className="dish">{item.name}</span>
-                            {item.badge && <span className="dish-badge">{item.badge}</span>}
-                          </div>
+                      <div className="dish-card-body">
+                        <div className="dish-card-top">
+                          <span className="dish">{item.name}</span>
                           <span className="price">{item.price}</span>
                         </div>
                         <p className="desc">{item.description}</p>
@@ -88,9 +119,9 @@ export default function Menu() {
                   ))}
                 </ul>
               </motion.div>
-            );
-          })}
-        </AnimatePresence>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </section>
   );
