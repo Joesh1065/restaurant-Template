@@ -20,7 +20,7 @@ export default function Menu() {
   };
 
   return (
-    <section id="menu" className="menu container" aria-labelledby="menu-heading">
+    <section id="menu" className="menu-section container" aria-labelledby="menu-heading">
       <motion.h2
         id="menu-heading"
         className="section-title"
@@ -31,7 +31,7 @@ export default function Menu() {
       >
         Full Dining Menu
       </motion.h2>
-      <p className="section-subtitle">Select a cuisine on the left to explore its dishes</p>
+      <p className="section-subtitle">Select a cuisine to explore its dishes</p>
 
       <div className="menu-table" role="table" aria-label="Restaurant menu by cuisine">
         {/* Table header row */}
@@ -78,15 +78,20 @@ export default function Menu() {
 
           {/* Column 2 — dishes + images for selected cuisine */}
           <div className="menu-table-dishes">
+            {/* Mobile-only label — replaces the hidden table header on small screens */}
+            <div className="menu-mobile-active-label">
+              {activeCat.label}
+              <span className="menu-table-count">{items.length} dishes</span>
+            </div>
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCat.id}
                 id={`panel-${activeCat.id}`}
                 role="tabpanel"
                 aria-labelledby={`tab-${activeCat.id}`}
-                initial={{ opacity: 0, x: 12 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -12 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
               >
                 <ul className="menu-dish-grid">

@@ -68,8 +68,8 @@ export default function HoursContact() {
       <div className="two-col">
         <motion.div
           className="hours-card"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
@@ -103,8 +103,8 @@ export default function HoursContact() {
         <motion.div
           id="contact-form-section"
           className="contact-card"
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
         >
